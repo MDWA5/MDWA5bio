@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NST Rent Cars - Luxury Car Rentals</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #fafafa;
+            color: #4a4a4a;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, #2c3e50, #34495e);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ecf0f1;
+        }
+        
+        .logo span {
+            color: #b8c2cc;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-right: 25px;
+        }
+        
+        nav ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #a0d2db;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(52, 73, 94, 0.7)), url('file:///C:/Users/RaWaF/Downloads/45698.png') no-repeat center center/cover;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #ecf0f1;
+            font-weight: 300;
+        }
+        
+        .hero p {
+            font-size: 22px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: transparent;
+            color: #ecf0f1;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 2px;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 1px solid #a0d2db;
+        }
+        
+        .btn:hover {
+            background: #a0d2db;
+            color: #2c3e50;
+        }
+        
+        /* Cars Section */
+        .section-title {
+            text-align: center;
+            margin: 40px 0 30px;
+            font-size: 32px;
+            color: #2c3e50;
+            position: relative;
+            padding-bottom: 15px;
+            font-weight: 300;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background: #a0d2db;
+        }
+        
+        .cars-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .car-card {
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            border: 1px solid #eaeaea;
+        }
+        
+        .car-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .car-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .car-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .car-card:hover .car-image img {
+            transform: scale(1.05);
+        }
+        
+        .car-details {
+            padding: 20px;
+        }
+        
+        .car-title {
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .car-location {
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .car-location i {
+            margin-right: 5px;
+            color: #a0d2db;
+        }
+        
+        .car-specs {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            padding: 15px 0;
+            border-top: 1px solid #eaeaea;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .car-specs span {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        
+        .car-specs i {
+            margin-right: 5px;
+            color: #a0d2db;
+        }
+        
+        .car-rating {
+            color: #a0d2db;
+            margin-bottom: 15px;
+        }
+        
+        .car-pricing {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .price-option {
+            text-align: center;
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #eaeaea;
+            border-radius: 2px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .price-option:hover {
+            border-color: #a0d2db;
+            background: #f7f9fb;
+        }
+        
+        .price-option.active {
+            border-color: #a0d2db;
+            background: #f7f9fb;
+        }
+        
+        .price-amount {
+            font-weight: 500;
+            font-size: 18px;
+            color: #2c3e50;
+        }
+        
+        .price-days {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        
+        .car-km-info {
+            background: #f7f9fb;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .car-km-info .km-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .km-original {
+            text-decoration: line-through;
+            color: #7f8c8d;
+        }
+        
+        .km-discount {
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        
+        .car-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .action-btn {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            margin: 0 5px;
+            border: 1px solid #a0d2db;
+            border-radius: 2px;
+            color: #a0d2db;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .action-btn:hover {
+            background: #a0d2db;
+            color: #2c3e50;
+        }
+        
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+        }
+        
+        .whatsapp-btn:hover {
+            background: #128C7E;
+            color: white;
+        }
+        
+        /* Payment Methods Section */
+        .payment-section {
+            background: #f7f9fb;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .payment-card {
+            background: white;
+            border-radius: 4px;
+            padding: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            border: 1px solid #eaeaea;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .payment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .payment-card.visa {
+            border-top: 3px solid #3a5f7d;
+        }
+        
+        .payment-card.crypto {
+            border-top: 3px solid #f7931a;
+        }
+        
+        .payment-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        
+        .visa-icon {
+            color: #3a5f7d;
+        }
+        
+        .crypto-icon {
+            color: #f7931a;
+        }
+        
+        .payment-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-weight: 400;
+        }
+        
+        .payment-card p {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .payment-features {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        
+        .payment-features li {
+            margin-bottom: 10px;
+            list-style-type: none;
+            position: relative;
+            padding-left: 25px;
+            color: #7f8c8d;
+        }
+        
+        .payment-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #a0d2db;
+            font-weight: bold;
+        }
+        
+        /* Features Section */
+        .features {
+            background: #2c3e50;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .features h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #ecf0f1;
+            font-weight: 300;
+        }
+        
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature {
+            padding: 20px;
+        }
+        
+        .feature i {
+            font-size: 40px;
+            color: #a0d2db;
+            margin-bottom: 20px;
+        }
+        
+        .feature h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+        
+        .feature p {
+            color: #b8c2cc;
+        }
+        
+        /* Footer */
+        footer {
+            background: #34495e;
+            color: #ecf0f1;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #a0d2db;
+            position: relative;
+            padding-bottom: 10px;
+            font-weight: 400;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #a0d2db;
+        }
+        
+        .footer-section p {
+            margin-bottom: 10px;
+            color: #b8c2cc;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: #b8c2cc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #a0d2db;
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            color: #b8c2cc;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: #a0d2db;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #3a5f7d;
+            color: #b8c2cc;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .car-pricing {
+                flex-direction: column;
+            }
+            
+            .price-option {
+                margin: 5px 0;
+            }
+            
+            .car-actions {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                margin: 5px 0;
+            }
+            
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span>NST</span> Rent <span>Cars</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Main</a></li>
+                        <li><a href="#">Cars</a></li>
+                        <li><a href="#">Special Offers</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover Luxury and Comfort with NST Rent Cars</h1>
+            <p>Premium luxury car rental service in Dubai at the best prices</p>
+            <a href="#" class="btn">Browse Cars</a>
+        </div>
+    </section>
+
+    <!-- Cars Section -->
+    <section class="container">
+        <h2 class="section-title">Top Luxury Car Deals</h2>
+        
+        <div class="cars-container">
+            <!-- Car 1 - Range Rover Vogue HSE V8 -->
+            <div class="car-card">
+                <div class="car-image">
+                    <img src="file:///C:/Users/RaWaF/Downloads/3B4D0FE2-C7EA-4128-8759-C4352879658F.png" alt="Mercedes‑AMG G 63 (G-Wagon">
+                </div>
+                <div class="car-details">
+                    <h3 class="car-title">Mercedes‑AMG G 63 (G-Wagon)- 2023</h3>
+                    <div class="car-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Dubai</span>
+                    </div>
+                    <div class="car-specs">
+                        <span><i class="fas fa-tachometer-alt"></i> 250 km/h</span>
+                        <span><i class="fas fa-car"></i> Automatic</span>
+                        <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                    </div>
+                    <div class="car-pricing">
+                        <div class="price-option active">
+                            <div class="price-amount">1,750 AED</div>
+                            <div class="price-days">1 Day</div>
+                        </div>
+                        <div class="price-option">
+                            <div class="price-amount">12,250 AED</div>
+                            <div class="price-days">1 Week</div>
+                        </div>
+                        <div class="price-option">
+                            <div class="price-amount">52,500 AED</div>
+                            <div class="price-days">1 Month</div>
+                        </div>
+                    </div>
+                    <div class="car-km-info">
+                        <div class="km-item">
+                            <span>Daily KM:</span>
+                            <span><span class="km-original">250-</span> <span class="km-discount">300 KM/DAY</span></span>
+                        </div>
+                        <div class="km-item">
+                            <span>Weekly KM:</span>
+                            <span><span class="km-original">4,750-</span> <span class="km-discount">2,100 KM/WEEK</span></span>
+                        </div>
+                        <div class="km-item">
+                            <span>Monthly KM:</span>
+                            <span><span class="km-original">4,000-</span> <span class="km-discount">5,000 KM/MONTH</span></span>
+                        </div>
+                        <div class="km-item">
+                            <span>Deposit:</span>
+                            <span class="km-discount">No Deposit Required</span>
+                        </div>
+                    </div>
+                    <div class="car-actions">
+                        <button class="action-btn">Rental Details</button>
+                        <button class="action-btn whatsapp-btn">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Car 2 - Ferrari 488 Pista -->
+            <div class="car-card">
+                <div class="car-image">
+                    <img src="file:///C:/Users/RaWaF/Downloads/0C6EA8D3-0BB1-4FA6-9A78-A952B942EF2A.png" alt="Ferrari 488 Pista">
+                </div>
+                <div class="car-details">
+                    <h3 class="car-title">Lamborghini Huracan EVO</h3>
+                    <div class="car-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Dubai</span>
+                         </div>
+                    <div class="car-specs">
+                        <span><i class="fas fa-tachometer-alt"></i> 250 km/h</span>
+                        <span><i class="fas fa-car"></i> Automatic</span>
+                        <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                    </div>
+                    <div class="car-pricing">
+                        <div class="price-option active">
+                            <div class="price-amount">2,250 AED</div>
+                            <div class="price-days">1 Day</div>
+                        </div>
+                        <div class="price-option">
+                            <div class="price-amount">14,000 AED</div>
+                            <div class="price-days">1 Week</div>
+                        </div>
+                        <div class="price-option">
+                            <div class="price-amount"> 40,500 AED</div>
+                            <div class="price-days">1 Month</div>
+                        </div>
+                    </div>
+                    <div class="car-km-info">
+                        <div class="km-item">
+                            <span>Daily KM:</span>
+                            <span><span class="km-original">250-</span> <span class="km-discount">300 KM/DAY</span></span>
+                        </div>
+                        <div class="km-item">
+                            <span>Weekly KM:</span>
+                            <span><span class="km-original">1,750-</span> <span class="km-discount">2,100 KM/WEEK</span></span>
+                        </div>
+                        <div class="km-item">
+                            <span>Monthly KM:</span>
+                            <span><span class="km-original">4,000-</span> <span class="km-discount"> 5,000  KM/MONTH</span></span>
+                        </div>
+                        <div class="km-item">
+                            <span>Deposit:</span>
+                            <span class="km-discount">5,000 AED</span>
+                        </div>
+                    </div>
+                    <div class="car-actions">
+                        <button class="action-btn">Rental Details</button>
+                        <button class="action-btn whatsapp-btn">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Car 3 - Bentley Continental GT -->
+            <div class="car-card">
+                <div class="car-image">
+                    <img src="file:///C:/Users/RaWaF/Downloads/9C546F38-FE84-4ADF-BF9A-D69A1EDEC8E3.png" alt="Rolls‑Royce Phantom">
+                </div>
+                <div class="car-details">
+                    <h3 class="car-title">Rolls‑Royce Phantom - 2023</h3>
+                    <div class="car-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Dubai</span>
+                    </div>
+                    <div class="car-specs">
+                        <span><i class="fas fa-tachometer-alt"></i> 250 km/h</span>
+                        <span><i class="fas fa-car"></i> Automatic</span>
+                        <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                    </div>
+                    <div class="car-pricing">
+                        <div class="price-option active">
+                            <div class="price-amount">3,000 AED</div>
+                            <div class="price-days">1 Day</div>
+                        </div>
+                        <div class="price-option">
+                            <div class="price-amount">21,000 AED</div>
+                            <div class="price-days">1 Week</div>
+                        </div>
+                        <div class="price-option">
+                            <div class="price-amount">84,000 AED</div>
+                            <div class="price-days">1 Month</div>
+                        </div>
+                    </div>
+                    <div class="car-km-info">
+                        <div class="km-item">
+                            <span>Daily KM:</span>
+                            <span><span class="km-original">220-</span> <span class="km-discount">280 KM/DAY</span></span>
+                        </div>
+                        <div class="km-item">
+                            <span>Weekly KM:</span>
+                            <span><span class="km-original">3,800-</span> <span class="km-discount">1,900 KM/WEEK</span></span>
+                        </div>
+                        <div class="km-item">
+                            <span>Monthly KM:</span>
+                            <span><span class="km-original">3,500-</span> <span class="km-discount">4,500 KM/MONTH</span></span>
+                        </div>
+                        <div class="km-item">
+                            <span>Deposit:</span>
+                            <span class="km-discount">4,000 AED</span>
+                        </div>
+                    </div>
+                    <div class="car-actions">
+                        <button class="action-btn">Rental Details</button>
+                        <button class="action-btn whatsapp-btn">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Car 4 - Porsche 911 Carrera 4S -->
+            <div class="car-card">
+                <div class="car-image">
+                    <img src="file:///C:/Users/RaWaF/Downloads/C091D50C-A5F1-4E25-8867-E1C6927A4275.png" alt="Porsche 911 Carrera 4S">
+                </div>
+                <div class="car-details">
+                    <h3 class="car-title">Porsche 911 Carrera 4S 2022</h3>
+                    <div class="car-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Dubai</span>
+                   </div>
+                    <div class="car-specs">
+                        <span><i class="fas fa-tachometer-alt"></i> 250 km/h</span>
+                        <span><i class="fas fa-car"></i> Automatic</span>
+                        <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                    </div>
+                    <div class="car-pricing">
+                        <div class="price-option active">
+                            <div class="price-amount">1,260 AED</div>
+                            <div class="price-days">1 Day</div>
+                        </div>
+                        <div class="price-option">
+                            <div class="price-amount">7,840 AED</div>
+                            <div class="price-days">1 Week</div>
+                        </div>
+                        <div class="price-option">
+                            <div class="price-amount">25,200 AED</div>
+                            <div class="price-days">1 Month</div>
+                        </div>
+                    </div>
+                    <div class="car-km-info">
+                        <div class="km-item">
+                            <span>Daily KM:</span>
+                            <span><span class="km-original">180-</span> <span class="km-discount">220 KM/DAY</span></span>
+                        </div>
+                        <div class="km-item">
+                            <span>Weekly KM:</span>
+                            <span><span class="km-original">2,500-</span> <span class="km-discount">1,500 KM/WEEK</span></span>
+                        </div>
+                        <div class="km-item">
+                            <span>Monthly KM:</span>
+                            <span><span class="km-original">3,000-</span> <span class="km-discount">3,500 KM/MONTH</span></span>
+                        </div>
+                        <div class="km-item">
+                            <span>Deposit:</span>
+                            <span class="km-discount">10,000 AED</span>
+                        </div>
+                    </div>
+                    <div class="car-actions">
+                        <button class="action-btn">Rental Details</button>
+                        <button class="action-btn whatsapp-btn">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Methods Section -->
+    <section class="payment-section">
+        <div class="container">
+            <h2 class="section-title">Available Payment Methods</h2>
+            <div class="payment-methods">
+                <div class="payment-card visa">
+                    <div class="payment-icon">
+                        <i class="fab fa-cc-visa visa-icon"></i>
+                    </div>
+                    <h3>Pay with Visa Card</h3>
+                    <p>Enjoy secure and easy payments using your Visa card</p>
+                    <ul class="payment-features">
+                        <li>Secure encrypted transactions</li>
+                        <li>Fast and instant payments</li>
+                        <li>Support for all types of Visa cards</li>
+                        <li>Advanced fraud protection</li>
+                    </ul>
+                    <button class="action-btn">Pay Now</button>
+                </div>
+                
+                <div class="payment-card">
+                    <div class="payment-icon">
+                        <i class="fas fa-money-bill-wave" style="color: #3a5f7d;"></i>
+                    </div>
+                    <h3>Pay on Delivery</h3>
+                    <p>Pay cash when you receive the car</p>
+                    <ul class="payment-features">
+                        <li>No credit card needed</li>
+                        <li>Suitable for customers who prefer cash payments</li>
+                        <li>Instant booking confirmation</li>
+                    </ul>
+                    <button class="action-btn">Book Now</button>
+                </div>
+                
+                <div class="payment-card crypto">
+                    <div class="payment-icon">
+                        <i class="fab fa-bitcoin crypto-icon"></i>
+                    </div>
+                    <h3>Cryptocurrency Payments</h3>
+                    <p>Pay with popular cryptocurrencies for enhanced privacy and convenience</p>
+                    <ul class="payment-features">
+                        <li>Accept Bitcoin, Ethereum, and more</li>
+                        <li>Fast and secure blockchain transactions</li>
+                        <li>Lower transaction fees</li>
+                        <li>Global accessibility</li>
+                    </ul>
+                    <button class="action-btn">Pay with Crypto</button>
+                </div>
+                
+                <div class="payment-card">
+                    <div class="payment-icon">
+                        <i class="fas fa-mobile-alt" style="color: #3a5f7d;"></i>
+                    </div>
+                    <h3>E-Wallets</h3>
+                    <p>Payment through electronic wallets</p>
+                    <ul class="payment-features">
+                        <li>Pay with Apple Pay</li>
+                        <li>Pay with Google Pay</li>
+                        <li>Fast and secure transactions</li>
+                    </ul>
+                    <button class="action-btn">E-Payment</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>Enjoy the Ease and Speed with NST Rent Cars</h2>
+            <div class="features-container">
+                <div class="feature">
+                    <i class="fas fa-clock"></i>
+                    <h3>Fast Bookings</h3>
+                    <p>Book your dream car in minutes</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Comprehensive Insurance</h3>
+                    <p>All our cars are fully insured</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-headset"></i>
+                    <h3>24/7 Support</h3>
+                    <p>Technical support teams available to help you 24/7</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-tag"></i>
+                    <h3>Best Prices</h3>
+                    <p>We offer the best deals and competitive prices</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About NST Rent Cars</h3>
+                    <p>We are leaders in luxury car rentals in Dubai, offering you the best services and finest cars.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Main</a></li>
+                        <li><a href="#">Cars</a></li>
+                        <li><a href="#">Special Offers</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Dubai, United Arab Emirates</p>
+                    <p><i class="fas fa-phone"></i> +971 50 660 0997</p>
+                    <p><i class="fas fa-envelope"></i> bin3blan@gmail.com</p>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/j88" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 NST Rent Cars. All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Activate price options
+        document.querySelectorAll('.price-option').forEach(option => {
+            option.addEventListener('click', function() {
+                this.parentElement.querySelectorAll('.price-option').forEach(opt => {
+                    opt.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
