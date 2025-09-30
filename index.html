@@ -1,992 +1,958 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NST Rent Cars - Luxury Car Rentals</title>
+    <title>MDWA5 | Future Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
+        
+        :root {
+            --primary: #00f7ff;
+            --secondary: #ff00d6;
+            --accent: #00ff57;
+            --dark: #0a0a1a;
+            --darker: #050510;
+            --light: #f0f8ff;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --glow: 0 0 15px var(--primary), 0 0 30px var(--primary);
+        }
+
+        
+        [data-theme="dark"] {
+            --primary: #00f7ff;
+            --secondary: #ff00d6;
+            --accent: #00ff57;
+            --dark: #0a0a1a;
+            --darker: #050510;
+            --light: #f0f8ff;
+        }
+
+        [data-theme="light"] {
+            --primary: #0066cc;
+            --secondary: #cc0066;
+            --accent: #00aa44;
+            --dark: #f0f8ff;
+            --darker: #e0e8f0;
+            --light: #050510;
+        }
+
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            cursor: none; 
         }
-        
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background-color: #fafafa;
-            color: #4a4a4a;
+            background-color: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
             line-height: 1.6;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
+
         
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            mix-blend-mode: difference;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s ease;
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--secondary);
+            mix-blend-mode: difference;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.4s ease;
+        }
+
+        
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(45deg, var(--darker), #0f0f2e, #15153a);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            box-shadow: var(--glow);
+            animation: float 20s infinite linear;
+            transition: transform 0.1s ease;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+
+        
+        h1, h2, h3 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(0, 247, 255, 0.3);
+        }
+
+        h2 {
+            font-size: 3rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        
+        section {
+            min-height: 100vh;
+            padding: 100px 10%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 15px;
         }
+
         
-        /* Header Styles */
-        header {
-            background: linear-gradient(to right, #2c3e50, #34495e);
-            color: white;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        
-        .header-content {
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 10%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            z-index: 1000;
+            background: rgba(5, 5, 16, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 247, 255, 0.1);
+            transition: var(--transition);
         }
-        
+
         .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #ecf0f1;
-        }
-        
-        .logo span {
-            color: #b8c2cc;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-right: 25px;
-        }
-        
-        nav ul li a {
-            color: #ecf0f1;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
             text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        nav ul li a:hover {
-            color: #a0d2db;
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(52, 73, 94, 0.7)), url('images/all.png') no-repeat center center/cover;
-            height: 500px;
             display: flex;
             align-items: center;
-            color: white;
-            text-align: center;
-            position: relative;
         }
-        
-        .hero-content {
-            z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
         }
-        
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #ecf0f1;
-            font-weight: 300;
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
         }
-        
-        .hero p {
-            font-size: 22px;
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-        
-        .btn {
-            display: inline-block;
-            background: transparent;
-            color: #ecf0f1;
-            padding: 12px 30px;
+
+        .nav-links a {
+            color: var(--light);
             text-decoration: none;
-            border-radius: 2px;
             font-weight: 500;
-            transition: all 0.3s;
-            border: 1px solid #a0d2db;
-        }
-        
-        .btn:hover {
-            background: #a0d2db;
-            color: #2c3e50;
-        }
-        
-        /* Cars Section */
-        .section-title {
-            text-align: center;
-            margin: 40px 0 30px;
-            font-size: 32px;
-            color: #2c3e50;
             position: relative;
-            padding-bottom: 15px;
-            font-weight: 300;
+            padding: 5px 0;
+            transition: var(--transition);
         }
-        
-        .section-title::after {
+
+        .nav-links a::after {
             content: '';
             position: absolute;
             bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
+            left: 0;
+            width: 0;
             height: 2px;
-            background: #a0d2db;
+            background: var(--primary);
+            transition: var(--transition);
         }
-        
-        .cars-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
+
+        .nav-links a:hover {
+            color: var(--primary);
         }
-        
-        .car-card {
-            background: white;
-            border-radius: 4px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-            border: 1px solid #eaeaea;
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
+
         
-        .car-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .car-image {
-            height: 200px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 5px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 18px;
-            font-weight: 500;
         }
-        
-        .car-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
+
+        .theme-toggle:hover {
+            background: rgba(0, 247, 255, 0.1);
+            transform: rotate(30deg);
         }
+
         
-        .car-card:hover .car-image img {
-            transform: scale(1.05);
-        }
-        
-        .car-details {
-            padding: 20px;
-        }
-        
-        .car-title {
-            font-size: 20px;
-            font-weight: 400;
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
-        
-        .car-location {
-            color: #7f8c8d;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .car-location i {
-            margin-right: 5px;
-            color: #a0d2db;
-        }
-        
-        .car-specs {
-            display: flex;
-            justify-content: space-between;
-            margin: 15px 0;
-            padding: 15px 0;
-            border-top: 1px solid #eaeaea;
-            border-bottom: 1px solid #eaeaea;
-        }
-        
-        .car-specs span {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            color: #7f8c8d;
-        }
-        
-        .car-specs i {
-            margin-right: 5px;
-            color: #a0d2db;
-        }
-        
-        .car-rating {
-            color: #a0d2db;
-            margin-bottom: 15px;
-        }
-        
-        .car-pricing {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-        
-        .price-option {
+        #home {
             text-align: center;
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #eaeaea;
-            border-radius: 2px;
-            margin: 0 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .price-option:hover {
-            border-color: #a0d2db;
-            background: #f7f9fb;
-        }
-        
-        .price-option.active {
-            border-color: #a0d2db;
-            background: #f7f9fb;
-        }
-        
-        .price-amount {
-            font-weight: 500;
-            font-size: 18px;
-            color: #2c3e50;
-        }
-        
-        .price-days {
-            font-size: 14px;
-            color: #7f8c8d;
-        }
-        
-        .car-km-info {
-            background: #f7f9fb;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-        
-        .car-km-info .km-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-        
-        .km-original {
-            text-decoration: line-through;
-            color: #7f8c8d;
-        }
-        
-        .km-discount {
-            color: #2c3e50;
-            font-weight: 500;
-        }
-        
-        .car-actions {
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .action-btn {
-            flex: 1;
-            text-align: center;
-            padding: 10px;
-            margin: 0 5px;
-            border: 1px solid #a0d2db;
-            border-radius: 2px;
-            color: #a0d2db;
-            background: transparent;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-        
-        .action-btn:hover {
-            background: #a0d2db;
-            color: #2c3e50;
-        }
-        
-        .whatsapp-btn {
-            background: #25D366;
-            color: white;
-            border: none;
-        }
-        
-        .whatsapp-btn:hover {
-            background: #128C7E;
-            color: white;
-        }
-        
-        /* Payment Methods Section */
-        .payment-section {
-            background: #f7f9fb;
-            padding: 60px 0;
-            text-align: center;
-        }
-        
-        .payment-methods {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .payment-card {
-            background: white;
-            border-radius: 4px;
-            padding: 30px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-            border: 1px solid #eaeaea;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .payment-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .payment-card.visa {
-            border-top: 3px solid #3a5f7d;
-        }
-        
-        .payment-card.crypto {
-            border-top: 3px solid #f7931a;
-        }
-        
-        .payment-icon {
-            font-size: 50px;
-            margin-bottom: 20px;
-        }
-        
-        .visa-icon {
-            color: #3a5f7d;
-        }
-        
-        .crypto-icon {
-            color: #f7931a;
-        }
-        
-        .payment-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: #2c3e50;
-            font-weight: 400;
-        }
-        
-        .payment-card p {
-            color: #7f8c8d;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-        
-        .payment-features {
-            text-align: left;
-            margin-bottom: 20px;
-        }
-        
-        .payment-features li {
-            margin-bottom: 10px;
-            list-style-type: none;
             position: relative;
-            padding-left: 25px;
-            color: #7f8c8d;
+            overflow: hidden;
         }
-        
-        .payment-features li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #a0d2db;
-            font-weight: bold;
-        }
-        
-        /* Features Section */
-        .features {
-            background: #2c3e50;
-            color: white;
-            padding: 60px 0;
-            text-align: center;
-        }
-        
-        .features h2 {
-            font-size: 36px;
-            margin-bottom: 40px;
-            color: #ecf0f1;
-            font-weight: 300;
-        }
-        
-        .features-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .feature {
-            padding: 20px;
-        }
-        
-        .feature i {
-            font-size: 40px;
-            color: #a0d2db;
-            margin-bottom: 20px;
-        }
-        
-        .feature h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            font-weight: 400;
-        }
-        
-        .feature p {
-            color: #b8c2cc;
-        }
-        
-        /* Footer */
-        footer {
-            background: #34495e;
-            color: #ecf0f1;
-            padding: 40px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .footer-section h3 {
-            font-size: 20px;
-            margin-bottom: 20px;
-            color: #a0d2db;
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
             position: relative;
-            padding-bottom: 10px;
-            font-weight: 400;
+            z-index: 1;
         }
-        
-        .footer-section h3::after {
+
+        .hero-content h1 {
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 3rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--darker);
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 50px;
+            box-shadow: var(--glow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-button::before {
             content: '';
             position: absolute;
-            bottom: 0;
+            top: 0;
             left: 0;
-            width: 50px;
-            height: 2px;
-            background: #a0d2db;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
         }
-        
-        .footer-section p {
-            margin-bottom: 10px;
-            color: #b8c2cc;
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px var(--primary), 0 0 40px var(--primary);
         }
-        
-        .footer-section ul {
-            list-style: none;
+
+        .cta-button:hover::before {
+            opacity: 1;
         }
+
         
-        .footer-section ul li {
-            margin-bottom: 10px;
+        #about {
+            background: rgba(10, 10, 26, 0.7);
         }
-        
-        .footer-section ul li a {
-            color: #b8c2cc;
-            text-decoration: none;
-            transition: color 0.3s;
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
         }
-        
-        .footer-section ul li a:hover {
-            color: #a0d2db;
+
+        .about-text h2 {
+            margin-bottom: 2rem;
         }
-        
-        .social-icons a {
-            display: inline-block;
-            margin-right: 15px;
-            color: #b8c2cc;
-            font-size: 20px;
-            transition: color 0.3s;
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
         }
-        
-        .social-icons a:hover {
-            color: #a0d2db;
+
+        .skill {
+            padding: 10px 20px;
+            background: rgba(0, 247, 255, 0.1);
+            border: 1px solid rgba(0, 247, 255, 0.3);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: var(--transition);
         }
+
+        .skill:hover {
+            background: rgba(0, 247, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0, 247, 255, 0.2);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(0.3);
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            filter: grayscale(0);
+            transform: scale(1.05);
+        }
+
         
-        .footer-bottom {
+        #experience {
+            background: rgba(5, 5, 16, 0.7);
+        }
+
+        .experience-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background: rgba(10, 10, 26, 0.8);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 247, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 247, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border: 4px solid var(--darker);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+            box-shadow: var(--glow);
+        }
+
+        .timeline-item:nth-child(odd)::after {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+
+        .timeline-date {
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+
+        
+        #certifications {
+            background: rgba(10, 10, 26, 0.7);
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .cert-card {
+            background: rgba(5, 5, 16, 0.8);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 247, 255, 0.2);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .cert-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border-color: var(--primary);
+        }
+
+        .cert-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .cert-card h3 {
+            margin-bottom: 1rem;
+        }
+
+        
+        #contact {
+            background: rgba(5, 5, 16, 0.7);
             text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #3a5f7d;
-            color: #b8c2cc;
         }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(0, 247, 255, 0.1);
+            border: 1px solid rgba(0, 247, 255, 0.3);
+            border-radius: 50px;
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-link i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .contact-link:hover {
+            background: rgba(0, 247, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+    
+        footer {
+            padding: 30px 10%;
+            text-align: center;
+            background: rgba(5, 5, 16, 0.9);
+            border-top: 1px solid rgba(0, 247, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
         
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
             }
-            
-            nav ul {
-                margin-top: 20px;
-                justify-content: center;
-                flex-wrap: wrap;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
+        }
+
+        
+        @media (max-width: 992px) {
+            h1 { font-size: 3.5rem; }
+            h2 { font-size: 2.5rem; }
             
-            nav ul li {
-                margin: 5px 10px;
-            }
-            
-            .hero h1 {
-                font-size: 36px;
-            }
-            
-            .hero p {
-                font-size: 18px;
-            }
-            
-            .car-pricing {
-                flex-direction: column;
-            }
-            
-            .price-option {
-                margin: 5px 0;
-            }
-            
-            .car-actions {
-                flex-direction: column;
-            }
-            
-            .action-btn {
-                margin: 5px 0;
-            }
-            
-            .payment-methods {
+            .about-content {
                 grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .timeline::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item:nth-child(even) { left: 0; }
+            .timeline-item::after { left: 21px; }
+            .timeline-item:nth-child(odd)::after, .timeline-item:nth-child(even)::after { left: 21px; }
+        }
+
+        @media (max-width: 768px) {
+            section { padding: 80px 5%; }
+            nav { padding: 20px 5%; }
+            
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 2.2rem; }
+            
+            .nav-links { 
+                display: none; 
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                color: var(--primary);
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+
+            
+            .cursor, .cursor-follower {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
+    
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    
+    <div class="bg-animation"></div>
+    <div class="particles" id="particles"></div>
+
+    
+    <nav>
+        <a href="#home" class="logo"><i class="fas fa-robot"></i> MDWA5</a> 
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#certifications">Certifications</a>
+            <a href="#contact">Contact</a>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    
+    <section id="home">
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <span>NST</span> Rent <span>Cars</span>
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href="#">Main</a></li>
-                        <li><a href="#">Cars</a></li>
-                        <li><a href="#">Special Offers</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Discover Luxury and Comfort with NST Rent Cars</h1>
-            <p>Premium luxury car rental service in Dubai at the best prices</p>
-            <a href="#" class="btn">Browse Cars</a>
-        </div>
-    </section>
-
-    <!-- Cars Section -->
-    <section class="container">
-        <h2 class="section-title">Top Luxury Car Deals</h2>
-        
-        <div class="cars-container">
-            <!-- Car 1 - Mercedes‑AMG G 63 -->
-            <div class="car-card">
-                <div class="car-image">
-                    <img src="images/md.png" alt="Mercedes‑AMG G 63 (G-Wagon">
-                </div>
-                <div class="car-details">
-                    <h3 class="car-title">Mercedes‑AMG G 63 (G-Wagon)- 2023</h3>
-                    <div class="car-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Dubai</span>
-                    </div>
-                    <div class="car-specs">
-                        <span><i class="fas fa-tachometer-alt"></i> 250 km/h</span>
-                        <span><i class="fas fa-car"></i> Automatic</span>
-                        <span><i class="fas fa-gas-pump"></i> Petrol</span>
-                    </div>
-                    <div class="car-pricing">
-                        <div class="price-option active">
-                            <div class="price-amount">1,750 AED</div>
-                            <div class="price-days">1 Day</div>
-                        </div>
-                        <div class="price-option">
-                            <div class="price-amount">12,250 AED</div>
-                            <div class="price-days">1 Week</div>
-                        </div>
-                        <div class="price-option">
-                            <div class="price-amount">52,500 AED</div>
-                            <div class="price-days">1 Month</div>
-                        </div>
-                    </div>
-                    <div class="car-km-info">
-                        <div class="km-item">
-                            <span>Daily KM:</span>
-                            <span><span class="km-original">250-</span> <span class="km-discount">300 KM/DAY</span></span>
-                        </div>
-                        <div class="km-item">
-                            <span>Weekly KM:</span>
-                            <span><span class="km-original">4,750-</span> <span class="km-discount">2,100 KM/WEEK</span></span>
-                        </div>
-                        <div class="km-item">
-                            <span>Monthly KM:</span>
-                            <span><span class="km-original">4,000-</span> <span class="km-discount">5,000 KM/MONTH</span></span>
-                        </div>
-                        <div class="km-item">
-                            <span>Deposit:</span>
-                            <span class="km-discount">No Deposit Required</span>
-                        </div>
-                    </div>
-                    <div class="car-actions">
-                        <button class="action-btn">Rental Details</button>
-                        <button class="action-btn whatsapp-btn">
-                            <i class="fab fa-whatsapp"></i> WhatsApp
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Car 2 - Lamborghini Huracan EVO -->
-            <div class="car-card">
-                <div class="car-image">
-                    <img src="images/blue.png" alt="Lamborghini Huracan EVO">
-                </div>
-                <div class="car-details">
-                    <h3 class="car-title">Lamborghini Huracan EVO</h3>
-                    <div class="car-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Dubai</span>
-                         </div>
-                    <div class="car-specs">
-                        <span><i class="fas fa-tachometer-alt"></i> 250 km/h</span>
-                        <span><i class="fas fa-car"></i> Automatic</span>
-                        <span><i class="fas fa-gas-pump"></i> Petrol</span>
-                    </div>
-                    <div class="car-pricing">
-                        <div class="price-option active">
-                            <div class="price-amount">2,250 AED</div>
-                            <div class="price-days">1 Day</div>
-                        </div>
-                        <div class="price-option">
-                            <div class="price-amount">14,000 AED</div>
-                            <div class="price-days">1 Week</div>
-                        </div>
-                        <div class="price-option">
-                            <div class="price-amount"> 40,500 AED</div>
-                            <div class="price-days">1 Month</div>
-                        </div>
-                    </div>
-                    <div class="car-km-info">
-                        <div class="km-item">
-                            <span>Daily KM:</span>
-                            <span><span class="km-original">250-</span> <span class="km-discount">300 KM/DAY</span></span>
-                        </div>
-                        <div class="km-item">
-                            <span>Weekly KM:</span>
-                            <span><span class="km-original">1,750-</span> <span class="km-discount">2,100 KM/WEEK</span></span>
-                        </div>
-                        <div class="km-item">
-                            <span>Monthly KM:</span>
-                            <span><span class="km-original">4,000-</span> <span class="km-discount"> 5,000  KM/MONTH</span></span>
-                        </div>
-                        <div class="km-item">
-                            <span>Deposit:</span>
-                            <span class="km-discount">5,000 AED</span>
-                        </div>
-                    </div>
-                    <div class="car-actions">
-                        <button class="action-btn">Rental Details</button>
-                        <button class="action-btn whatsapp-btn">
-                            <i class="fab fa-whatsapp"></i> WhatsApp
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Car 3 - Rolls‑Royce Phantom -->
-            <div class="car-card">
-                <div class="car-image">
-                    <img src="images/luxus.png" alt="Rolls‑Royce Phantom">
-                </div>
-                <div class="car-details">
-                    <h3 class="car-title">Rolls‑Royce Phantom - 2023</h3>
-                    <div class="car-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Dubai</span>
-                    </div>
-                    <div class="car-specs">
-                        <span><i class="fas fa-tachometer-alt"></i> 250 km/h</span>
-                        <span><i class="fas fa-car"></i> Automatic</span>
-                        <span><i class="fas fa-gas-pump"></i> Petrol</span>
-                    </div>
-                    <div class="car-pricing">
-                        <div class="price-option active">
-                            <div class="price-amount">3,000 AED</div>
-                            <div class="price-days">1 Day</div>
-                        </div>
-                        <div class="price-option">
-                            <div class="price-amount">21,000 AED</div>
-                            <div class="price-days">1 Week</div>
-                        </div>
-                        <div class="price-option">
-                            <div class="price-amount">84,000 AED</div>
-                            <div class="price-days">1 Month</div>
-                        </div>
-                    </div>
-                    <div class="car-km-info">
-                        <div class="km-item">
-                            <span>Daily KM:</span>
-                            <span><span class="km-original">220-</span> <span class="km-discount">280 KM/DAY</span></span>
-                        </div>
-                        <div class="km-item">
-                            <span>Weekly KM:</span>
-                            <span><span class="km-original">3,800-</span> <span class="km-discount">1,900 KM/WEEK</span></span>
-                        </div>
-                        <div class="km-item">
-                            <span>Monthly KM:</span>
-                            <span><span class="km-original">3,500-</span> <span class="km-discount">4,500 KM/MONTH</span></span>
-                        </div>
-                        <div class="km-item">
-                            <span>Deposit:</span>
-                            <span class="km-discount">4,000 AED</span>
-                        </div>
-                    </div>
-                    <div class="car-actions">
-                        <button class="action-btn">Rental Details</button>
-                        <button class="action-btn whatsapp-btn">
-                            <i class="fab fa-whatsapp"></i> WhatsApp
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Car 5 - Bentley Continental GT -->
-            <div class="car-card">
-            <div class="car-image">
-               <img src="images/bentley.png" alt="Bentley Continental GT">   
-               </div>
-                <div class="car-details">
-                    <h3 class="car-title">Bentley Continental GT - 2023</h3>
-                    <div class="car-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Dubai</span>
-                    </div>
-                    <div class="car-specs">
-                        <span><i class="fas fa-tachometer-alt"></i> 333 km/h</span>
-                        <span><i class="fas fa-car"></i> Automatic</span>
-                        <span><i class="fas fa-gas-pump"></i> Petrol</span>
-                    </div>
-                    <div class="car-pricing">
-                        <div class="price-option active">
-                            <div class="price-amount">2,100 AED</div>
-                            <div class="price-days">1 Day</div>
-                        </div>
-                        <div class="price-option">
-                            <div class="price-amount">14,700 AED</div>
-                            <div class="price-days">1 Week</div>
-                        </div>
-                        <div class="price-option">
-                            <div class="price-amount">58,800 AED</div>
-                            <div class="price-days">1 Month</div>
-                        </div>
-                    </div>
-                    <div class="car-km-info">
-                        <div class="km-item">
-                            <span>Daily KM:</span>
-                            <span><span class="km-original">270-</span> <span class="km-discount">320 KM/DAY</span></span>
-                        </div>
-                        <div class="km-item">
-                            <span>Weekly KM:</span>
-                            <span><span class="km-original">1,890-</span> <span class="km-discount">2,240 KM/WEEK</span></span>
-                        </div>
-                        <div class="km-item">
-                            <span>Monthly KM:</span>
-                            <span><span class="km-original">8,100-</span> <span class="km-discount">9,600 KM/MONTH</span></span>
-                        </div>
-                        <div class="km-item">
-                            <span>Deposit:</span>
-                            <span class="km-discount">6,000 AED</span>
-                        </div>
-                    </div>
-                    <div class="car-actions">
-                        <button class="action-btn">Rental Details</button>
-                        <button class="action-btn whatsapp-btn">
-                            <i class="fab fa-whatsapp"></i> WhatsApp
-                        </button>
-                    </div>
-                </div>
+            <div class="hero-content">
+                <h1 data-aos="fade-up">MDWA5 CYBER WORLD</h1>
+                <p class="tagline" data-aos="fade-up" data-aos-delay="200">MDWA5 </p>
+                <p data-aos="fade-up" data-aos-delay="400">Welcome to my futuristic portfolio. I craft digital experiences with security at their core — combining innovative design with the principles of cyber defense and digital resilience. </p>
+                <a href="#about" class="cta-button" data-aos="fade-up" data-aos-delay="600">EXPLORE MY WORLD <i class="fas fa-arrow-down"></i></a>
             </div>
         </div>
     </section>
 
-    <!-- Payment Methods Section -->
-    <section class="payment-section">
+  
+<section id="about">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-text" data-aos="fade-right" style="grid-column: 1 / -1; text-align: center; max-width: 900px; margin: 0 auto;">
+                <h2>ABOUT ME</h2>
+                <p>hey, Im MDWA5 — a tech enthusiast turned full-stack developer with a sharp eye for security and a love for clean, powerful code. My journey started with breaking things just to learn how they worked. Today, I build systems that are hard to break. Whether it's securing networks, designing seamless user experiences, or engineering scalable backends — I bring a mix of creativity, logic, and cyber awareness into everything I do.</p>
+                <p>Because in a world full of code, I choose to build what's safe, smart, and unforgettable.</p>
+                <div class="skills">
+                    <div class="skill">Cybersecurity</div>
+                    <div class="skill">Network Engineering</div>
+                    <div class="skill">Full-Stack Development</div>
+                    <div class="skill">Cloud Computing</div>
+                    <div class="skill">AI & Machine Learning</div>
+                    <div class="skill">Blockchain Technology</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    
+    <section id="experience">
         <div class="container">
-            <h2 class="section-title">Available Payment Methods</h2>
-            <div class="payment-methods">
-                <div class="payment-card visa">
-                    <div class="payment-icon">
-                        <i class="fab fa-cc-visa visa-icon"></i>
+            <h2 data-aos="fade-up">EXPERIENCE & ACHIEVEMENTS</h2>
+            <div class="experience-container">
+                <div class="timeline">
+                    <div class="timeline-item" data-aos="fade-right">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2023 - PRESENT</div>
+                            <h3>Senior Cybersecurity Analyst</h3>
+                            <p>Leading security initiatives for global enterprise systems, implementing advanced threat detection systems, and conducting penetration testing.</p>
+                        </div>
                     </div>
-                    <h3>Pay with Visa Card</h3>
-                    <p>Enjoy secure and easy payments using your Visa card</p>
-                    <ul class="payment-features">
-                        <li>Secure encrypted transactions</li>
-                        <li>Fast and instant payments</li>
-                        <li>Support for all types of Visa cards</li>
-                        <li>Advanced fraud protection</li>
-                    </ul>
-                    <button class="action-btn">Pay Now</button>
-                </div>
-                
-                <div class="payment-card">
-                    <div class="payment-icon">
-                        <i class="fas fa-money-bill-wave" style="color: #3a5f7d;"></i>
+                    <div class="timeline-item" data-aos="fade-left">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2021 - 2023</div>
+                            <h3>Network Security Engineer</h3>
+                            <p>Designed and implemented secure network architectures for financial institutions, reducing security incidents by 75%.</p>
+                        </div>
                     </div>
-                    <h3>Pay on Delivery</h3>
-                    <p>Pay cash when you receive the car</p>
-                    <ul class="payment-features">
-                        <li>No credit card needed</li>
-                        <li>Suitable for customers who prefer cash payments</li>
-                        <li>Instant booking confirmation</li>
-                    </ul>
-                    <button class="action-btn">Book Now</button>
-                </div>
-                
-                <div class="payment-card crypto">
-                    <div class="payment-icon">
-                        <i class="fab fa-bitcoin crypto-icon"></i>
+                    <div class="timeline-item" data-aos="fade-right">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2020 - 2021</div>
+                            <h3>Full-Stack Developer</h3>
+                            <p>Developed innovative web applications using modern frameworks, focusing on performance and user experience.</p>
+                        </div>
                     </div>
-                    <h3>Cryptocurrency Payments</h3>
-                    <p>Pay with popular cryptocurrencies for enhanced privacy and convenience</p>
-                    <ul class="payment-features">
-                        <li>Accept Bitcoin, Ethereum, and more</li>
-                        <li>Fast and secure blockchain transactions</li>
-                        <li>Lower transaction fees</li>
-                        <li>Global accessibility</li>
-                    </ul>
-                    <button class="action-btn">Pay with Crypto</button>
-                </div>
-                
-                <div class="payment-card">
-                    <div class="payment-icon">
-                        <i class="fas fa-mobile-alt" style="color: #3a5f7d;"></i>
+                    <div class="timeline-item" data-aos="fade-left">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2019 - 2020</div>
+                            <h3>IT Security Specialist</h3>
+                            <p>Implemented security protocols and conducted vulnerability assessments for various corporate networks.</p>
+                        </div>
                     </div>
-                    <h3>E-Wallets</h3>
-                    <p>Payment through electronic wallets</p>
-                    <ul class="payment-features">
-                        <li>Pay with Apple Pay</li>
-                        <li>Pay with Google Pay</li>
-                        <li>Fast and secure transactions</li>
-                    </ul>
-                    <button class="action-btn">E-Payment</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
+    
+    <section id="certifications">
         <div class="container">
-            <h2>Enjoy the Ease and Speed with NST Rent Cars</h2>
-            <div class="features-container">
-                <div class="feature">
-                    <i class="fas fa-clock"></i>
-                    <h3>Fast Bookings</h3>
-                    <p>Book your dream car in minutes</p>
+            <h2 data-aos="fade-up">CERTIFICATIONS</h2>
+            <p data-aos="fade-up" data-aos-delay="200">My professional certifications demonstrate my commitment to excellence in the fields of cybersecurity and technology.</p>
+            <div class="cert-grid">
+                <div class="cert-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="cert-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>CS50</h3>
+                    <p>Harvard University's introduction to computer science, covering algorithms, data structures, and software development.</p>
                 </div>
-                <div class="feature">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>Comprehensive Insurance</h3>
-                    <p>All our cars are fully insured</p>
+                <div class="cert-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="cert-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>CCNA</h3>
+                    <p>Cisco Certified Network Associate - demonstrating skills in network installation, configuration, and troubleshooting.</p>
                 </div>
-                <div class="feature">
-                    <i class="fas fa-headset"></i>
-                    <h3>24/7 Support</h3>
-                    <p>Technical support teams available to help you 24/7</p>
+                <div class="cert-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="cert-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Security+</h3>
+                    <p>CompTIA Security+ certification validating foundational cybersecurity skills and knowledge.</p>
                 </div>
-                <div class="feature">
-                    <i class="fas fa-tag"></i>
-                    <h3>Best Prices</h3>
-                    <p>We offer the best deals and competitive prices</p>
+                <div class="cert-card" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="cert-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>AWS Solutions Architect</h3>
+                    <p>Demonstrating expertise in designing distributed systems on Amazon Web Services platform.</p>
+                </div>
+                <div class="cert-card" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="cert-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3>CEH</h3>
+                    <p>Certified Ethical Hacker - skills in identifying vulnerabilities and strengthening system security.</p>
+                </div>
+                <div class="cert-card" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="cert-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Full Stack Development</h3>
+                    <p>Advanced certification in modern web development technologies and frameworks.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+       <section id="contact">
+    <div class="container">
+        <div class="contact-content">
+            <h2 data-aos="fade-up">GET IN TOUCH</h2>
+            <p data-aos="fade-up" data-aos-delay="200">Ready to bring your futuristic project to life? Let's connect and create something amazing together.</p>
+            <div class="contact-links">
+                <a href="https://github.com/MDWA5" class="contact-link" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="https://instagram.com/7sqo" class="contact-link" data-aos="zoom-in" data-aos-delay="400">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="https://t.me/udp08" class="contact-link" data-aos="zoom-in" data-aos-delay="500">
+                    <i class="fab fa-telegram"></i> Telegram
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+   
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>About NST Rent Cars</h3>
-                    <p>We are leaders in luxury car rentals in Dubai, offering you the best services and finest cars.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#">Main</a></li>
-                        <li><a href="#">Cars</a></li>
-                        <li><a href="#">Special Offers</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact Us</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Dubai, United Arab Emirates</p>
-                    <p><i class="fas fa-phone"></i> +971 50 111 1111</p>
-                    <p><i class="fas fa-envelope"></i> bin3blan@gmail.com</p>
-                    <div class="social-icons">
-                        <a href="https://www.instagram.com/j88" target="_blank">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 NST Rent Cars. All Rights Reserved</p>
-            </div>
+        <div class="footer-content">
+            <div class="footer-logo">MDWA5</div>
+            <p class="copyright">© 2019 MDWA5. All rights reserved</p>
         </div>
     </footer>
 
+   
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        // Activate price options
-        document.querySelectorAll('.price-option').forEach(option => {
-            option.addEventListener('click', function() {
-                this.parentElement.querySelectorAll('.price-option').forEach(opt => {
-                    opt.classList.remove('active');
-                });
-                this.classList.add('active');
+        
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                
+                const size = Math.random() * 4 + 2;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 20 + 10;
+                const animationDelay = Math.random() * 20;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}vw`;
+                particle.style.animationDuration = `${animationDuration}s`;
+                particle.style.animationDelay = `${animationDelay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        
+        window.addEventListener('DOMContentLoaded', createParticles);
+        
+        
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 100);
+        });
+        
+        
+        document.querySelectorAll('a, button, .skill, .cert-card, .timeline-content').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(1.5)';
+                cursorFollower.style.transform = 'scale(1.3)';
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursorFollower.style.transform = 'scale(1)';
+            });
+        });
+        
+        
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        
+        if (currentTheme === 'light') {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            if (newTheme === 'light') {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+        
+        
+        document.addEventListener('mousemove', (e) => {
+            const particles = document.querySelectorAll('.particle');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            particles.forEach(particle => {
+                const speedX = (mouseX - 0.5) * 10;
+                const speedY = (mouseY - 0.5) * 10;
+                
+                particle.style.transform = `translate(${speedX}px, ${speedY}px)`;
             });
         });
     </script>
